@@ -4,6 +4,7 @@ plugins {
 	id("org.springframework.boot") version "3.4.4"
 	id("io.spring.dependency-management") version "1.1.7"
 	kotlin("plugin.jpa") version "1.9.25"
+	id("org.openapi.generator") version "7.4.0"
 }
 
 group = "com.leokenzley"
@@ -40,6 +41,41 @@ dependencies {
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("org.springframework.security:spring-security-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	// Swagger UI opcional (para testes com frontend)
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
+}
+
+openApiGenerate {
+	generatorName.set("kotlin-spring")
+	inputSpec.set("$rootDir/openapi/openapi.yaml")
+	outputDir.set("$buildDir/generated") // TODO - mudar
+	apiPackage.set("com.leokenzley.kotlinapi.api")
+	modelPackage.set("com.leokenzley.kotlinapi.model")
+	invokerPackage.set("com.leokenzley.invoker")
+	configOptions.set(
+		mapOf(
+			"library"               to  "spring-boot",
+			"basePackage"           to  "${project.group}",
+			"apiPackage"            to  "${project.group}.api",
+			"modelPackage"          to  "${project.group}.dto",
+			"booleanGetterPrefix"   to  "is",
+			"skipDefaultInterface"  to  "true",
+			"interfaceOnly"         to  "true",
+			"requestMappingMode"    to  "api_interface",
+			"delegatePattern"       to  "false",
+			"openApiNullable"       to  "false",
+			"generateBuilders"      to  "true",
+			"serializableModel"     to  "true",
+			"useSpringBoot3"        to  "true",
+			"useBeanValidation"     to  "true",
+			"performBeanValidation" to  "true"
+		)
+	)
+}
+
+sourceSets["main"].java {
+	srcDir("$buildDir/generated/src/main/kotlin")
 }
 
 kotlin {
@@ -54,6 +90,15 @@ allOpen {
 	annotation("jakarta.persistence.Embeddable")
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+	kotlinOptions {
+		jvmTarget = "21"
+	}
+}
+
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+tasks.named("compileKotlin") {
+	dependsOn("openApiGenerate")
 }
