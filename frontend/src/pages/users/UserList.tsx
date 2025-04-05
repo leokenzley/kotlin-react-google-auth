@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import { getPaginatedUsers } from '@/services/userService';
 import { useNavigate } from 'react-router-dom';
 import { User } from '@/types/User';
+import PageContent from '@/components/PageContent';
+import PageTitle from '@/components/PageTitle';
 
 export default function UserList() {
   const [users, setUsers] = useState<User[]>([]);
@@ -18,9 +20,8 @@ export default function UserList() {
   }, [page]);
 
   return (
-    <main className="min-h-screen  dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-6">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">User List</h1>
+        <PageContent>
+        <PageTitle title="User List" />
         <div className="flex justify-between items-center mt-4" style={{ marginBottom: '20px' }}> 
         <button
             onClick={() => navigate('/users/create')}
@@ -70,7 +71,6 @@ export default function UserList() {
             </button>
           ))}
         </div>
-      </div>
-    </main>
+        </PageContent>
   );
 }

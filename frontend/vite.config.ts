@@ -6,7 +6,8 @@ import path from 'path'
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 3000, // Altere para a porta desejada
+    port: 3000, // Altere para a porta desejada,
+    historyApiFallback: true,
   },
   resolve: {
     alias: {
