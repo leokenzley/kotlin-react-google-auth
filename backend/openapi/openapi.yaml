@@ -5,6 +5,7 @@ info:
 servers:
   - url: http://localhost:8080
 
+
 tags:
   - name: users
     description: Everything about your Users

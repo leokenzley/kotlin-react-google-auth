@@ -44,6 +44,12 @@ dependencies {
 
 	// Swagger UI opcional (para testes com frontend)
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
+	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+		exclude(group = "org.mockito")
+	}
+
+	testImplementation("io.mockk:mockk:1.13.8")
+	testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
 }
 
 openApiGenerate {
@@ -56,9 +62,8 @@ openApiGenerate {
 	configOptions.set(
 		mapOf(
 			"library"               to  "spring-boot",
-			"basePackage"           to  "${project.group}",
-			"apiPackage"            to  "${project.group}.api",
-			"modelPackage"          to  "${project.group}.dto",
+			"apiPackage"            to  "${project.group}.kotlinapi.api",
+			"modelPackage"          to  "${project.group}.kotlinapi.dto",
 			"booleanGetterPrefix"   to  "is",
 			"skipDefaultInterface"  to  "true",
 			"interfaceOnly"         to  "true",
