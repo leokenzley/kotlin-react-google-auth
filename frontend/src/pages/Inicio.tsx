@@ -29,7 +29,9 @@ const Inicio = () => {
             width="250"
             onSuccess={(credentialResponse) => {
               const decoded = jwtDecode(credentialResponse.credential);
+              localStorage.setItem('jwt', credentialResponse.credential);
               console.log('Google user:', credentialResponse);
+              console.log('Decoded JWT:', localStorage.getItem('jwt'));
               login(decoded);
             }}
             onError={() => {

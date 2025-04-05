@@ -1,4 +1,4 @@
-package com.leokenzley.kotlinapi.configuration.security.usecase
+package com.leokenzley.kotlinapi.configuration.usecase
 
 import com.leokenzley.kotlinapi.core.ports.`in`.users.*
 import com.leokenzley.kotlinapi.core.ports.out.UserRepository

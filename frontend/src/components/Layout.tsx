@@ -25,7 +25,7 @@ function Layout() {
             <DashboardIcon className="w-5 h-5" />
             <span>Dashboard</span>
           </Link>
-          <Link to="/" className={linkClass('/usuarios')}>
+          <Link to="/usuarios" className={linkClass('/usuarios')}>
             <UsersIcon className="w-5 h-5" />
             <span>Usuários</span>
           </Link>
@@ -34,9 +34,9 @@ function Layout() {
        )}
       {/* Sidebar END*/}
       {/* Main area */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-h-screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         <Topbar />
-        <main className="p-6">
+        <main className="min-h-screen dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-6">
           <Outlet />
         </main>
       </div>

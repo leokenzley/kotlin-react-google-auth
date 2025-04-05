@@ -4,6 +4,8 @@ import PrivateRoute from './components/PrivateRoute';
 import Layout from './components/Layout';
 import Usuarios from './pages/Usuarios';
 import Inicio from './pages/Inicio';
+import UserList from '@/pages/users/UserList'
+import UserCreate from './pages/users/UserCreate';
 
 
 function App() {
@@ -17,8 +19,9 @@ function App() {
             </PrivateRoute>} />
             
         <Route path="/usuarios" element={ <PrivateRoute>
-              <Usuarios />
+              <UserList />
             </PrivateRoute>} />
+            <Route path="/users/create" element={<PrivateRoute><UserCreate /></PrivateRoute>} />
       </Route>
     </Routes>
   );
