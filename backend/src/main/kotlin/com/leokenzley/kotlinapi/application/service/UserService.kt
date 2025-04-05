@@ -4,6 +4,7 @@ import com.leokenzley.kotlinapi.dto.UserRequest
 import com.leokenzley.kotlinapi.dto.UserResponse
 import com.leokenzley.kotlinapi.application.mapper.UserMapper
 import com.leokenzley.kotlinapi.core.ports.`in`.users.*
+import com.leokenzley.kotlinapi.core.usecase.handler.exception.UserNotFoundException
 import com.leokenzley.kotlinapi.dto.PaginatedUserResponse
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -26,19 +27,19 @@ class UserService(
 
     fun findById(id: Long): UserResponse {
         val user = findUserByIdUseCase.find(id)
-            ?: throw IllegalArgumentException("User with id $id not found")
+            ?: throw UserNotFoundException("Resource not found")
         return UserMapper.toResponse(user)
     }
 
     fun deleteUser(id: Long) {
         val user = findUserByIdUseCase.find(id)
-            ?: throw IllegalArgumentException("User with id $id not found")
+            ?: throw UserNotFoundException("Resource not found")
         user.id?.let { deleteUserUseCase.execute(it) }
     }
 
     fun updateUser(id: Long, request: UserRequest): UserResponse {
         val user = findUserByIdUseCase.find(id)
-            ?: throw IllegalArgumentException("User with id $id not found")
+            ?: throw UserNotFoundException("Resource not found")
         val updatedUser = user.copy(
             name = request.name,
             email = request.email,

@@ -32,7 +32,6 @@ class UserController(
             direction = if (sort.split(",").get(1).uppercase() == "ASC") Sort.Direction.ASC else Sort.Direction.DESC
             property = sort.split(",").get(0)
         }
-
         val pageable = PageRequest.of(page, size, direction, property)
         val paginatedUsers = userService.findPaginated(pageable)
         return ResponseEntity.ok(paginatedUsers)
