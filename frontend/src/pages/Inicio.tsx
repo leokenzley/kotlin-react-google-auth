@@ -29,7 +29,7 @@ const Inicio = () => {
             width="250"
             onSuccess={(credentialResponse) => {
               const decoded = jwtDecode(credentialResponse.credential);
-              console.log('Google user:', decoded);
+              console.log('Google user:', credentialResponse);
               login(decoded);
             }}
             onError={() => {
