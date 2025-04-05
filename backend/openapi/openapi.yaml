@@ -64,7 +64,7 @@ paths:
         required: true
         schema:
           type: integer
-          format: int32
+          format: int64
     get:
       tags:
         - users
@@ -265,7 +265,7 @@ paths:
         required: true
         schema:
           type: integer
-          format: int32
+          format: int64
     get:
       tags:
         - artists
@@ -382,7 +382,7 @@ paths:
         required: true
         schema:
           type: integer
-          format: int32
+          format: int64
     get:
       tags:
         - agenda
@@ -630,21 +630,28 @@ components:
         totalElements:
           type: integer
           description: Total itens in the paginated response
+          format: int64
         totalPages:
           type: integer
           description: Total of pages
-        size:
-          type: integer
-          description: Number of items per page
-        number:
-          type: integer
-          description: Current page number (starts at 0) 
         first:
           type: boolean
           description: Indicates whether it is the first page
         last:
           type: boolean
           description: Indicates whether it is the last page
+        hasNext:
+          type: boolean
+          description: Indicates whether there is a next page
+        hasPrevious:
+          type: boolean
+          description: Indicates whether there is a previous page  
+        page:
+          type: integer
+          description: Current page number (starts at 0)
+        size:
+          type: integer
+          description: Number of items per page            
     PaginatedArtistResponse:
       type: object
       properties:
