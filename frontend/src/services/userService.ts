@@ -25,15 +25,21 @@ export const getPaginatedUsers = async (
 export const createUser = async (userData: { name: string, email: string }) => {
   try {
     const token = localStorage.getItem('jwt');
-    const response = await api.post('/users', userData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await api.post('/users', userData, {});
     return response.data;
   } catch (error) {
     console.error("Error creating user:", error);
     throw error; // Ou retornar algum tipo de mensagem de erro
   }
 };
+
+
+export const getUserById = async (id: string) => {
+  const response = await api.get(`/users/${id}`, {});
+  return response.data; // Retorna os dados do usuário
+};
+
+export const updateUser = async (userData: UserFormData, id: string) => {
+  const response = await api.put(`/users/${id}`, userData, {});
+  return response.data;
+}
